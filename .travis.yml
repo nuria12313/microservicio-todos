@@ -1,0 +1,24 @@
+
+services: 
+  - docker
+
+install:
+  - echo "No hay nada que instalar"
+
+script:
+  - docker build -t microservicio-todos .
+  - docker tag microservicio-todos nuria12314/microservicio-todos:latest
+=======
+services: 
+  - docker
+
+install:
+  - echo "No hay nada que instalar"
+
+script:
+  - docker build -t microservicio-todos .
+  - docker tag microservicio-todos nuria12314/microservicio-todos:latest
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push nuria12314/microservicio-todos
